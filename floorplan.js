@@ -2,8 +2,8 @@
 var cameraIconSize=50
 var floorplanWidth=250
 var angle
-var minPos = {x: 6, z: -14}
-var maxPos = {x: -9, z: 9.5}
+var minPos = {x: 0, z: -2}
+var maxPos = {x: -11, z: 16}
 var cameraIcon=document.querySelector('#floorplan-camera-icon')
 var floorplanWrapper=document.querySelector('#floorplan-wrapper')
 /* END customize values here */
@@ -41,29 +41,33 @@ var sceneXSize= Math.abs( maxPos.x - minPos.x )
 var sceneZSize= Math.abs( maxPos.z - minPos.z )
 var floorplanHeight=1.0*sceneXSize/sceneZSize*floorplanWidth
 
-function transform3dTo2d([x,z],angle){
-  angle=angle/180.0*Math.PI
-  var pixelCoords = [ z * Math.cos(angle) + Math.sin(angle) * x,
-                      x * Math.cos(angle-Math.PI) + Math.sin(angle) * z ];
-  pixelCoords.forEach(function(v, i){
-    if (v<0){    pixelCoords[i]+=1;   }
-  })
-  return pixelCoords;
+function rotateCoordinates(x,z,angle){
+  if (angle==0) {
+    return [z,1-x]
+  } else if (angle==90) {
+    return [x,z]
+  } else if (angle==180) {
+    return [1-z,x]
+  } else if (angle==270) {
+    return [1-x,1-z]
+  } else {
+    console.log("weird angle given");
+  }
 }
 
 function updateMap() {
-  var x = ((cam.getAttribute('position').x)-minPos.x) / sceneXSize
-  var z = ((cam.getAttribute('position').z)-minPos.z) / sceneZSize
-  
-  pixelX=transform3dTo2d([x,z],angle)[0]
-  pixelY=transform3dTo2d([x,z],angle)[1]
-  var playerRotation = angle-90-cam.getAttribute('rotation').y; 
+  var x3d = ((cam.getAttribute('position').x)-minPos.x) / sceneXSize
+  var z3d = ((cam.getAttribute('position').z)-minPos.z) / sceneZSize
+  coords2d=rotateCoordinates(x3d,z3d,angle)
+  var x2d=coords2d[0];
+  var y2d=coords2d[1];
+  var playerRotation = angle-90-cam.getAttribute('rotation').y;
   var css="width:"+cameraIconSize+"px;height:"+cameraIconSize+"px;"
-  css=css+"top:"+(pixelY*floorplanHeight-halfCameraIconSize)+"px;left:"+(pixelX*floorplanWidth-halfCameraIconSize)+"px;"
+  css=css+"top:"+(y2d*floorplanHeight-halfCameraIconSize)+"px;left:"+(x2d*floorplanWidth-halfCameraIconSize)+"px;"
   css=css+"transform:rotate("+playerRotation+"deg)"
   cameraIcon.setAttribute("style", css)
 }
-      
+
 updateMap()
 
 cam.addEventListener('componentchanged', function (evt) {
