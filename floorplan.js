@@ -1,7 +1,7 @@
  /* BEGIN customize values here */
 var cameraIconSize=50
 var floorplanWidth=250
-var angle=0
+var angle
 var minPos = {x: 6, z: -14}
 var maxPos = {x: -9, z: 9.5}
 var cameraIcon=document.querySelector('#floorplan-camera-icon')
@@ -43,7 +43,8 @@ var floorplanHeight=1.0*sceneXSize/sceneZSize*floorplanWidth
 
 function transform3dTo2d([x,z],angle){
   angle=angle/180.0*Math.PI
-  var pixelCoords = [ z * Math.cos(angle) + Math.sin(angle) * x, x * Math.cos(angle-Math.PI) + Math.sin(angle) * z ];
+  var pixelCoords = [ z * Math.cos(angle) + Math.sin(angle) * x,
+                      x * Math.cos(angle-Math.PI) + Math.sin(angle) * z ];
   pixelCoords.forEach(function(v, i){
     if (v<0){    pixelCoords[i]+=1;   }
   })
@@ -51,8 +52,8 @@ function transform3dTo2d([x,z],angle){
 }
 
 function updateMap() {
-  var x = (parseFloat(cam.getAttribute('position').x)-minPos.x) / sceneXSize
-  var z = (parseFloat(cam.getAttribute('position').z)-minPos.z) / sceneZSize
+  var x = ((cam.getAttribute('position').x)-minPos.x) / sceneXSize
+  var z = ((cam.getAttribute('position').z)-minPos.z) / sceneZSize
   
   pixelX=transform3dTo2d([x,z],angle)[0]
   pixelY=transform3dTo2d([x,z],angle)[1]
