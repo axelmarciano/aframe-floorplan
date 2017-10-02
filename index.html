@@ -51,6 +51,7 @@
     <app-3dio id="light_shadow_setup" scene-id="62cb3510-6708-4f62-94c3-f9936db7e20b"></app-3dio>
 
     <a-scene class="fullscreen">
+      <a-entity rotation="0 0 0" >
       <a-entity io3d-furniture="id:859cee91-c04b-4f2c-99ac-960825459be2" position="-3.72 0 1.19" rotation="0 180 0" shadow="cast:true; receive:false"></a-entity>
       <a-entity io3d-furniture="id:20a7e6c3-5944-485c-849f-afbea11f43df" position="-4.78 0 0.59" rotation="0 180 0" shadow="cast:true; receive:false"></a-entity>
       <a-entity io3d-furniture="id:e69ef9b3-cef1-4716-9d2a-b33ab51b315a" position="-2.83 0 1.55" rotation="0 180 0" shadow="cast:true; receive:false"></a-entity>
@@ -92,6 +93,8 @@
       <!-- apartment -->
       <a-entity id="apartment" io3d-data3d="key:/535e624259ee6b0200000484/bake/2017-06-30_11-05-49_P144IW/regular/lighting.gz.data3d.buffer; lightMapIntensity:1; lightMapExposure:0.7" shadow="receive:true; cast:false"></a-entity>
       <a-sky src="https://storage.3d.io/535e624259ee6b0200000484/2017-08-08_15-19-35_C6qRcB/empire_low.jpg"></a-sky>
+      </a-entity>
+
       <!-- overall ambient light -->
       <a-entity light="type:ambient; color:#bbb"></a-entity>
       <!-- shadow casting light -->
@@ -120,19 +123,34 @@
     
     <!-- Script for Minimap -->
     <script>
+       /* BEGIN customize values here */
       var cameraIconSize=50
       var floorplanWidth=250
-      var floorplanHeight=157
+      var angle=0
       var minPos = {x: 6, z: -14}
       var maxPos = {x: -9, z: 9.5}
       var cameraIcon=document.querySelector('#floorplan-camera-icon')
       var floorplanWrapper=document.querySelector('#floorplan-wrapper')
+      /* END customize values here */
 
-    
       var cam = document.querySelector('[camera]')
       var halfCameraIconSize=Math.floor(0.5*cameraIconSize)
       floorplanWrapper.setAttribute("style", "width:"+floorplanWidth+"px")
       
+      if (minPos.x>maxPos.x){
+        if (minPos.z>maxPos.z){
+          angle=270
+        } else {
+          angle=0
+        }
+      } else {
+        if (minPos.z>maxPos.z){
+          angle=180
+        } else {
+          angle=90
+        }
+      }
+
       if (minPos.x>maxPos.x){
         var temp = minPos.x
         minPos.x = maxPos.x
@@ -144,31 +162,38 @@
         maxPos.z = temp
       }
       
-      console.log(minPos,maxPos)
-      
-      var sceneXSize= Math.abs( maxPos.x- minPos.x )
+      var sceneXSize= Math.abs( maxPos.x - minPos.x )
       var sceneZSize= Math.abs( maxPos.z - minPos.z )
-      
+      var floorplanHeight=1.0*sceneXSize/sceneZSize*floorplanWidth
 
-      
+      function transform3dTo2d([x,z],angle){
+        angle=angle/180.0*Math.PI
+        var pixelCoords = [ z * Math.cos(angle) + Math.sin(angle) * x, x * Math.cos(angle-Math.PI) + Math.sin(angle) * z ];
+        pixelCoords.forEach(function(v, i){
+          if (v<0){    pixelCoords[i]+=1;   }
+        })
+        return pixelCoords;
+      }
+
+      function updateMap() {
+        var x = (parseFloat(cam.getAttribute('position').x)-minPos.x) / sceneXSize
+        var z = (parseFloat(cam.getAttribute('position').z)-minPos.z) / sceneZSize
+        
+        pixelX=transform3dTo2d([x,z],angle)[0]
+        pixelY=transform3dTo2d([x,z],angle)[1]
+        var playerRotation = angle-90-cam.getAttribute('rotation').y; 
+        var css="width:"+cameraIconSize+"px;height:"+cameraIconSize+"px;"
+        css=css+"top:"+(pixelY*floorplanHeight-halfCameraIconSize)+"px;left:"+(pixelX*floorplanWidth-halfCameraIconSize)+"px;"
+        css=css+"transform:rotate("+playerRotation+"deg)"
+        cameraIcon.setAttribute("style", css)
+      }
+            
       updateMap()
       
       cam.addEventListener('componentchanged', function (evt) {
         if (evt.detail.name !== 'position' && evt.detail.name !== 'rotation') { return; }
         updateMap()
       })
-      
-      function updateMap() {
-        var x = (-minPos.x+parseFloat(cam.getAttribute('position').x)) / sceneXSize
-        var z = (-minPos.z+parseFloat(cam.getAttribute('position').z)) / sceneZSize
-        console.log(x,z)
-        //deg
-        var playerRotation = 270-cam.getAttribute('rotation').y;
-        var css="width:"+cameraIconSize+"px;height:"+cameraIconSize+"px;"
-        css=css+"top:"+((1-x)*floorplanHeight-halfCameraIconSize)+"px;left:"+(z*floorplanWidth-halfCameraIconSize)+"px;"
-        css=css+"transform:rotate("+playerRotation+"deg)"
-        cameraIcon.setAttribute("style", css)
-      }
     </script>
     
     <script>
