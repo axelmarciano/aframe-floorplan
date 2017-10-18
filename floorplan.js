@@ -39,7 +39,16 @@ if (minPos.z>maxPos.z){
 
 var sceneXSize= Math.abs( maxPos.x - minPos.x )
 var sceneZSize= Math.abs( maxPos.z - minPos.z )
-var floorplanHeight=1.0*sceneXSize/sceneZSize*floorplanWidth
+
+var sizeRatio;
+if (angle == 90 || angle == 270) {
+    sizeRatio = 1.0 * sceneZSize / sceneXSize
+} else {
+    sizeRatio = 1.0 * sceneXSize / sceneZSize
+}
+var floorplanHeight = sizeRatio * floorplanWidth
+
+var floorplanHeight=sizeRatio*floorplanWidth
 
 function rotateCoordinates(x,z,angle){
   if (angle==0) {
