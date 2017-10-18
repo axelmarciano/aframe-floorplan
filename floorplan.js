@@ -48,8 +48,6 @@ if (angle == 90 || angle == 270) {
 }
 var floorplanHeight = sizeRatio * floorplanWidth
 
-var floorplanHeight=sizeRatio*floorplanWidth
-
 function rotateCoordinates(x,z,angle){
   if (angle==0) {
     return [z,1-x]
