@@ -3,7 +3,7 @@ This is a tiny guide on how to make a minimap HTML element in aframe
 
 1. Create an aframe webapp from your 3d.io scene on https://appcreator.3d.io/
 1. Add the HTML elements for the minimap
-  ```
+  ```html
    <!-- Floorplan -->
    <div id="floorplan-wrapper" class="overlay">
      <div id="floorplan-container">
@@ -13,7 +13,7 @@ This is a tiny guide on how to make a minimap HTML element in aframe
    </div>
   ```
 1. Add some CSS to your website to style them. Later, the JS code will write a style attribute into the ``floorplan-camera-icon`` that sets the position of the icon relative to the ``floorplan-container`` in pixels
-  ```
+  ```css
     #floorplan-wrapper {
       user-select: none;
       position: fixed;
