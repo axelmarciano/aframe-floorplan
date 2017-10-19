@@ -3,17 +3,17 @@ This is a tiny guide on how to make a minimap HTML element in aframe
 
 1. Create an aframe webapp from your 3d.io scene on https://appcreator.3d.io/
 1. Add the HTML elements for the minimap
-  ```
-     <!-- Floorplan -->
-    <div id="floorplan-wrapper" class="overlay">
-      <div id="floorplan-container">
-        <img id="floorplan" src="https://storage.3d.io/535e624259ee6b0200000484/2017-10-17_19-15-14_nk68JW/floorplan.jpg">
-        <img id="floorplan-camera-icon" src="https://cdn.glitch.com/a4457cb3-fb58-43ad-ad8e-d82fa2915817%2FCameraPosition.png?1504103910984">
-      </div>
-    </div>
+  ```html
+   <!-- Floorplan -->
+   <div id="floorplan-wrapper" class="overlay">
+     <div id="floorplan-container">
+       <img id="floorplan" src="floorplan.jpg">
+       <img id="floorplan-camera-icon" src="camera-icon.png">
+     </div>
+   </div>
   ```
 1. Add some CSS to your website to style them. Later, the JS code will write a style attribute into the ``floorplan-camera-icon`` that sets the position of the icon relative to the ``floorplan-container`` in pixels
-  ```
+  ```css
     #floorplan-wrapper {
       user-select: none;
       position: fixed;
@@ -50,7 +50,7 @@ This is a tiny guide on how to make a minimap HTML element in aframe
 2. press ``CTRL+ALT+I`` to launch the aframe inspector
 3. create a new entity by hitting the plus sign on the top left
 4. find your new entity on the bottom left and select it
-5. drag your entity around until it represents minPos, see picture below:
+5. drag your entity around until it represents ``minPos``, which is the top left corner of your floorplan in the 3d world. See picture below:
 ![](guide.png)
 6. enter the **x** and **z** coordinates of your entity into the minPos variable in the minimap script
 7. repeat for maxPos
