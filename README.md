@@ -4,46 +4,47 @@ This is a tiny guide on how to make a minimap HTML element in aframe
 1. Create an aframe webapp from your 3d.io scene on https://appcreator.3d.io/
 1. Add the HTML elements for the minimap
   ```
-<div id="floorplan-wrapper" class="overlay">
-    <div id="floorplan">
-      <img src="map.png">
-      <img id="floorplan-camera-icon" src="https://cdn.glitch.com/a4457cb3-fb58-43ad-ad8e-d82fa2915817%2FCameraPosition.png?1504103910984">
+     <!-- Floorplan -->
+    <div id="floorplan-wrapper" class="overlay">
+      <div id="floorplan-container">
+        <img id="floorplan" src="https://storage.3d.io/535e624259ee6b0200000484/2017-10-17_19-15-14_nk68JW/floorplan.jpg">
+        <img id="floorplan-camera-icon" src="https://cdn.glitch.com/a4457cb3-fb58-43ad-ad8e-d82fa2915817%2FCameraPosition.png?1504103910984">
+      </div>
     </div>
-</div>
   ```
-1. Add some CSS to your website to style them 
+1. Add some CSS to your website to style them. Later, the JS code will write a style attribute into the ``floorplan-camera-icon`` that sets the position of the icon relative to the ``floorplan-container`` in pixels
   ```
+    #floorplan-wrapper {
+      user-select: none;
+      position: fixed;
+      top: 5%;
+      right: 5%;
+      padding: 0;
+      z-index: 1000;
+      width: 250px;
+    }
+    @media only screen and (max-width: 800px) {
       #floorplan-wrapper {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        position: fixed;
-        top: 50px;
-        right: 50px;
-        padding: 0;
-        z-index: 1000;
+        width: 100px;
       }
-      #floorplan {
-        position: relative;
-        width: 100%;
-        padding: 0;
-        z-index: 1000;
-      }
-      #floorplan img {
-        width: 100%;
-        height: 100%;
-      }
-      #floorplan-camera-icon {
-       position: absolute;
-       width:25px;
-       height:25px;
-       transition-property: left, top;
-       transition-duration: 0.5s, 0.5s;
-      }
-
+    }
+    #floorplan-container {
+      position: relative;
+      width: 100%;
+      padding: 0;
+      z-index: 1000;
+    }
+    img#floorplan {
+      width: 100%;
+      height: 100%;
+    }
+    #floorplan-camera-icon {
+     width:50px;
+     width:50px;
+     position: absolute;
+     transition-property: left, top;
+     transition-duration: 0.5s, 0.5s;
+    }
   ```
 1. [Here](https://github.com/mope1/3dio-floorplan-guide/blob/master/floorplan.js) is some basic javascript that listens to movements of the aframe camera and converts them into css code for the floorplan camera icon. **Make sure this code is executed after the aframe scene is loaded.**
 2. press ``CTRL+ALT+I`` to launch the aframe inspector
