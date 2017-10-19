@@ -55,3 +55,4 @@ This is a tiny guide on how to make a minimap HTML element in aframe
    ![](guide.png)
 6. enter the **x** and **z** coordinates of your entity into the minPos variable in the minimap script
 7. repeat for maxPos
+8. You're done!
