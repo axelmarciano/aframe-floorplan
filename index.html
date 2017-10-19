@@ -1,51 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Demo with dynamic lights and shadows</title>
-    <meta name="description" content="3d.io interior scene with dynamic lighting and realtime shadows">
+    <title>Floorplan Demo</title>
     <!-- aframe library -->
     <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
     <!-- 3dio library. distributed via 'npm run dist' in https://github.com/archilogic-com/3dio-js -->
     <script src="https://3d.io/releases/3dio-js/1.0.x-beta/3dio.min.js"></script>
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        border: 0;
-      }
-
-      #floorplan-wrapper {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        position: fixed;
-        top: 50px;
-        right: 50px;
-        padding: 0;
-        z-index: 1000;
-      }
-      #floorplan {
-        position: relative;
-        width: 100%;
-        padding: 0;
-        z-index: 1000;
-      }
-      #floorplan img {
-        width: 100%;
-        height: 100%;
-      }
-      #floorplan-camera-icon {
-       position: absolute;
-       width:25px;
-       height:25px;
-       transition-property: left, top;
-       transition-duration: 0.5s, 0.5s;
-      }
-
-    </style>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <app-3dio id="light_shadow_setup" scene-id="62cb3510-6708-4f62-94c3-f9936db7e20b"></app-3dio>
@@ -67,13 +28,13 @@
 
     </a-scene>
 
-    <!-- FLOOR PLAN MINIMAP & ICON FOR CAMERA POSITION-->
-    <div id="floorplan-wrapper" class="overlay">
-        <div id="floorplan">
-            <img src="floorplan.png">
-            <img id="floorplan-camera-icon" src="https://cdn.glitch.com/a4457cb3-fb58-43ad-ad8e-d82fa2915817%2FCameraPosition.png?1504103910984">
-        </div>
-    </div>
+    <!-- Floorplan -->
+   <div id="floorplan-wrapper" class="overlay">
+     <div id="floorplan-container">
+       <img id="floorplan" src="floorplan.jpg">
+       <img id="floorplan-camera-icon" src="camera-icon.png">
+     </div>
+   </div>
 
     <!-- Script for Minimap -->
     <script src="floorplan.js"></script>
