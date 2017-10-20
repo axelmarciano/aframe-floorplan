@@ -12,7 +12,7 @@ This is a tiny guide on how to make a minimap HTML element in aframe, optionally
           <img id="floorplan-camera-icon" src="camera-icon.png">
         </div>
       </div>
-  ```  
+     ```  
 1. Add some CSS to your website to style them. Later, the JS code will write a style attribute into the ``floorplan-camera-icon`` that sets the position of the icon relative to the ``floorplan-container`` in pixels  
      ```css
        #floorplan-wrapper {
