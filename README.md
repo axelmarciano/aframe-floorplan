@@ -1,5 +1,5 @@
 # 3dio-floorplan-guide
-This is a tiny guide on how to make a minimap HTML element in aframe, optionally using [3d.io](https://3d.io) (though not required) 
+This is a tiny guide on how to make a minimap HTML element in aframe, optionally using [3d.io](https://3d.io) (not required) 
 
 1. Create an aframe webapp from your 3d scene, for example on https://appcreator.3d.io/ .
    If your scene was created with the [3d.io editor](https://spaces.archilogic.com/dashboard), make sure you find the ``a-entity`` with ``class="io3d-scene"`` and check it's ``rotation``. It should be``0 0 0``.
