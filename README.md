@@ -3,17 +3,15 @@ This is a tiny guide on how to make a minimap HTML element in aframe, optionally
 
 1. Create an aframe webapp from your 3d scene, for example on https://appcreator.3d.io/ .
    If your scene was created with the [3d.io editor](https://spaces.archilogic.com/dashboard), make sure you find the ``a-entity`` with ``class="io3d-scene"`` and check it's ``rotation``. It should be``0 0 0``.
-1. Add the HTML elements for the minimap   If your scene was created with the [3d.io editor](https://spaces.archilogic.com/dashboard), make sure you find the ``a-entity`` with ``class="io3d-scene"`` and check it's ``rotation``. It should be``0 0 0``.
-6
-
-  ```html
-   <!-- Floorplan -->
-   <div id="floorplan-wrapper" class="overlay">
-     <div id="floorplan-container">
-       <img id="floorplan" src="floorplan.jpg">
-       <img id="floorplan-camera-icon" src="camera-icon.png">
-     </div>
-   </div>
+1. Add the HTML elements for the minimap   If your scene was created with the [3d.io editor](https://spaces.archilogic.com/dashboard), make sure you find the ``a-entity`` with ``class="io3d-scene"`` and check it's ``rotation``. It should be``0 0 0``.  
+     ```html
+      <!-- Floorplan -->
+      <div id="floorplan-wrapper" class="overlay">
+        <div id="floorplan-container">
+          <img id="floorplan" src="floorplan.jpg">
+          <img id="floorplan-camera-icon" src="camera-icon.png">
+        </div>
+      </div>
   ```
 1. Add some CSS to your website to style them. Later, the JS code will write a style attribute into the ``floorplan-camera-icon`` that sets the position of the icon relative to the ``floorplan-container`` in pixels
   ```css
