@@ -15,7 +15,7 @@
     <a-scene class="fullscreen" vr-mode-ui="enabled: false">
 
       <!-- ID FOR ARCHILOGIC LIGHTMAP -->
-      <a-entity position="10 0 -40" rotation="0 20 0" id="apartment" io3d-data3d="key:535e624259ee6b0200000484/processing/2017-08-31_12-20-51_5sLtXJ/lighting.gz.data3d.buffer; lightMapIntensity:1.2; lightMapExposure:0.6" shadow="receive:true; cast:false"></a-entity>
+      <a-entity position="10 0 -3" rotation="0 -30 0" id="apartment" io3d-data3d="key:535e624259ee6b0200000484/processing/2017-08-31_12-20-51_5sLtXJ/lighting.gz.data3d.buffer; lightMapIntensity:1.2; lightMapExposure:0.6" shadow="receive:true; cast:false"></a-entity>
 
       <!-- SKYBOX TEXTURE -->
       <a-sky src="https://storage.3d.io/535e624259ee6b0200000484/2017-08-08_15-19-35_C6qRcB/empire_low.jpg"></a-sky>
@@ -24,27 +24,28 @@
       <a-entity light="type:ambient; color:#bbbbbb"></a-entity>
 
         <!-- CAMERA -->
-      <a-entity id="camera" camera="userHeight: 0" tour="autoStart: false; move: 3500" wasd-controls="acceleration:20;easing:4;" look-controls="reverseMouseDrag:true" mouse-cursor position="-7 1.7 -40" rotation="-20 -180 0"></a-entity>
+      <a-entity id="camera" camera="userHeight: 0" tour="autoStart: false; move: 3500" wasd-controls="acceleration:20;easing:4;" look-controls="reverseMouseDrag:true" mouse-cursor position="7 1.7 3" rotation="-20 -180 0"></a-entity>
 
     </a-scene>
 
     <!-- Floorplan -->
    <div id="floorplan-wrapper" class="overlay">
-     <img id="floorplan" src="../floorplan.jpg">
-     <img id="floorplan-camera-icon" src="../camera-icon.png">
+       <img id="floorplan" src="../floorplan.jpg">
+       <img id="floorplan-camera-icon" src="../camera-icon.png">
    </div>
 
     <!-- Script for Minimap -->
     <script src="../floorplan.js"></script>
     <script>
-      var minPos = {
-        x: 9.5,
-        z: -41
-      }
-      var maxPos = {
-        x: 5,
-        z: -21.5
-      }
+    var minPos = {
+      x: 10,
+      z: -3
+    }
+    var maxPos = {
+      x: -7,
+      z: 5
+    }
+
       initFloorplan(minPos,maxPos)
     </script>
 

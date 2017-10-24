@@ -30,11 +30,12 @@
 
     <!-- Floorplan -->
    <div id="floorplan-wrapper" class="overlay">
-     <img id="floorplan" src="../floorplan.jpg">
-     <img id="floorplan-camera-icon" src="../camera-icon.png">
+       <img id="floorplan" src="../floorplan.jpg">
+       <img id="floorplan-camera-icon" src="../camera-icon.png">
    </div>
 
     <!-- Script for Minimap -->
+    <script src="../floorplan.js"></script>
     <script>
       var minPos = {
         x: 9,
@@ -44,8 +45,8 @@
         x: 29,
         z: -42
       }
+      initFloorplan(minPos,maxPos)
     </script>
-    <script src="../floorplan.js"></script>
 
   </body>
 </html>
