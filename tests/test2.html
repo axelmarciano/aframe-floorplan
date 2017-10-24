@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Floorplan Demo</title>
+    <!-- aframe library -->
+    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+    <!-- 3dio library. distributed via 'npm run dist' in https://github.com/archilogic-com/3dio-js -->
+    <script src="https://3d.io/releases/3dio-js/1.0.x-beta/3dio.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+  </head>
+  <body>
+    <app-3dio id="light_shadow_setup" scene-id="62cb3510-6708-4f62-94c3-f9936db7e20b"></app-3dio>
+
+    <!-- A-FRAME SCENE -->
+    <a-scene class="fullscreen" vr-mode-ui="enabled: false">
+
+      <!-- ID FOR ARCHILOGIC LIGHTMAP -->
+      <a-entity position="10 0 -40" rotation="0 20 0" id="apartment" io3d-data3d="key:535e624259ee6b0200000484/processing/2017-08-31_12-20-51_5sLtXJ/lighting.gz.data3d.buffer; lightMapIntensity:1.2; lightMapExposure:0.6" shadow="receive:true; cast:false"></a-entity>
+
+      <!-- SKYBOX TEXTURE -->
+      <a-sky src="https://storage.3d.io/535e624259ee6b0200000484/2017-08-08_15-19-35_C6qRcB/empire_low.jpg"></a-sky>
+
+      <!-- OVERALL AMBIENT LIGHT -->
+      <a-entity light="type:ambient; color:#bbbbbb"></a-entity>
+
+        <!-- CAMERA -->
+      <a-entity id="camera" camera="userHeight: 0" tour="autoStart: false; move: 3500" wasd-controls="acceleration:20;easing:4;" look-controls="reverseMouseDrag:true" mouse-cursor position="-7 1.7 -40" rotation="-20 -180 0"></a-entity>
+
+    </a-scene>
+
+    <!-- Floorplan -->
+   <div id="floorplan-wrapper" class="overlay">
+     <div id="floorplan-container">
+       <img id="floorplan" src="../floorplan.jpg">
+       <img id="floorplan-camera-icon" src="../camera-icon.png">
+     </div>
+   </div>
+
+    <!-- Script for Minimap -->
+    <script>
+      var minPos = {
+        x: 9.5,
+        z: -41
+      }
+      var maxPos = {
+        x: 5,
+        z: -21.5
+      }
+    </script>
+    <script src="../floorplan.js"></script>
+
+  </body>
+</html>
