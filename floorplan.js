@@ -16,9 +16,7 @@ function initFloorplan(minPos, maxPos){
   var minPosV= new THREE.Vector2( minPos.x, minPos.z )
   var maxPosV= new THREE.Vector2( maxPos.x, maxPos.z )
 
-  var dx=Math.abs(minPos.x-maxPos.x)
-  var dy=Math.abs(minPos.z-maxPos.z)
-  var diagonal=Math.sqrt( dx*dx + dy*dy )
+  var diagonal=maxPosV.clone().sub(minPosV).length()
   var ratio = floorplanHeight/floorplanWidth
   var a = (diagonal*ratio)/Math.sqrt(ratio*ratio + 1)
   var b=a/ratio
@@ -42,12 +40,12 @@ function initFloorplan(minPos, maxPos){
     var x2d = (vCamR.x-minPosR.x)/(maxPosR.x-minPosR.x)
     var y2d = (vCamR.y-minPosR.y)/(maxPosR.y-minPosR.y)
 
-    var playerRotation = 180-cameraAngleOffset/(2.0*Math.PI)*360 - cam.getAttribute('rotation').y;
+    var cameraRotation = 180-cameraAngleOffset/(2.0*Math.PI)*360 - cam.getAttribute('rotation').y;
 
-    //write cameraIcon cSS
+    //write cameraIcon CSS
     var css = ""
     css = css + "top:" + (Math.round(y2d*100.0)/100.0 * floorplanHeight - halfCameraIconSize) + "px;right:" + ( Math.round((1-x2d)*100.0)/100.0 * floorplanWidth - halfCameraIconSize) + "px;"
-    css = css + "transform:rotate(" + (Math.round(playerRotation*100.0)/100.0) + "deg)"
+    css = css + "transform:rotate(" + (Math.round(cameraRotation*100.0)/100.0) + "deg)"
     cameraIcon.setAttribute("style", css)
   }
   updateMap()
