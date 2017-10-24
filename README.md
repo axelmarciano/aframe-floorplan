@@ -69,6 +69,6 @@ This is a tiny guide on how to make a minimap HTML element in aframe, optionally
 5. drag your entity around until it represents ``minPos``, which is the top left corner of your floorplan in the 3d world.  
    See picture below:  
    ![](guide.png)
-6. enter the **x** and **z** coordinates of your entity into the minPos variable in the minimap script
+6. enter the **x** and **z** coordinates of your entity into the ``minPos`` variable
 7. repeat for maxPos
 8. You're done!
