@@ -15,7 +15,7 @@
     <a-scene class="fullscreen" vr-mode-ui="enabled: false">
 
       <!-- ID FOR ARCHILOGIC LIGHTMAP -->
-      <a-entity position="10 0 -40" rotation="0 -230 0" id="apartment" io3d-data3d="key:535e624259ee6b0200000484/processing/2017-08-31_12-20-51_5sLtXJ/lighting.gz.data3d.buffer; lightMapIntensity:1.2; lightMapExposure:0.6" shadow="receive:true; cast:false"></a-entity>
+      <a-entity position="-10 0 -40" rotation="0 150 0" id="apartment" io3d-data3d="key:535e624259ee6b0200000484/processing/2017-08-31_12-20-51_5sLtXJ/lighting.gz.data3d.buffer; lightMapIntensity:1.2; lightMapExposure:0.6" shadow="receive:true; cast:false"></a-entity>
 
       <!-- SKYBOX TEXTURE -->
       <a-sky src="https://storage.3d.io/535e624259ee6b0200000484/2017-08-08_15-19-35_C6qRcB/empire_low.jpg"></a-sky>
@@ -30,19 +30,19 @@
 
     <!-- Floorplan -->
    <div id="floorplan-wrapper" class="overlay">
-     <img id="floorplan" src="../floorplan.jpg">
-     <img id="floorplan-camera-icon" src="../camera-icon.png">
+       <img id="floorplan" src="../floorplan2.jpg">
+       <img id="floorplan-camera-icon" src="../camera-icon.png">
    </div>
 
     <!-- Script for Minimap -->
     <script>
       var minPos = {
-        x: 9,
-        z: -40
+        x: -2,
+        z: -34
       }
       var maxPos = {
-        x: 29,
-        z: -42
+        x: -2,
+        z: -55
       }
     </script>
     <script src="../floorplan.js"></script>
