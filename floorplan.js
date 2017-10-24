@@ -1,12 +1,12 @@
 /* BEGIN customize values here */
 
 var minPos = {
-  x: -0.5,
-  z: -1.1
+  x: -0.3,
+  z: -1
 }
 var maxPos = {
-  x: -10,
-  z: 15
+  x: -1,
+  z: 18.7
 }
 /* END customize values here */
 
@@ -19,54 +19,40 @@ floorplanWrapper.setAttribute("style", "width:"+floorplanWidth+"px")
 
 var cam = document.querySelector('[camera]')
 var halfCameraIconSize = Math.floor(0.5 * cameraIconSize)
-var angle
-if (minPos.x > maxPos.x) {
-  if (minPos.z > maxPos.z) {
-    angle = 270
-  } else {
-    angle = 0
-  }
-} else {
-  if (minPos.z > maxPos.z) {
-    angle = 180
-  } else {
-    angle = 90
-  }
-}
-if (minPos.x > maxPos.x) {
-  var temp = minPos.x
-  minPos.x = maxPos.x
-  maxPos.x = temp
-}
-if (minPos.z > maxPos.z) {
-  var temp = minPos.z
-  minPos.z = maxPos.z
-  maxPos.z = temp
-}
-var sceneXSize = Math.abs(maxPos.x - minPos.x)
-var sceneZSize = Math.abs(maxPos.z - minPos.z)
 
-function rotateCoordinates(x, z, angle) {
-  if (angle == 0) {
-    return [z, 1 - x]
-  } else if (angle == 90) {
-    return [x, z]
-  } else if (angle == 180) {
-    return [1 - z, x]
-  } else if (angle == 270) {
-    return [1 - x, 1 - z]
-  } else {
-    console.log("weird angle given");
-  }
-}
+var dx=Math.abs(minPos.x-maxPos.x)
+var dy=Math.abs(minPos.z-maxPos.z)
+
+var diagonal=Math.sqrt( dx*dx + dy*dy )
+var ratio = floorplanHeight/floorplanWidth
+var a = (diagonal*ratio)/Math.sqrt(ratio*ratio + 1)
+var b=a/ratio
+var alpha=Math.asin(a/diagonal)
+var minPosV= new THREE.Vector2( minPos.x, minPos.z )
+var maxPosV= new THREE.Vector2( maxPos.x, maxPos.z )
+var diagonalV=maxPosV.clone().setLength(b).rotateAround( new THREE.Vector2(0,0), -alpha )
+var corner=minPosV.clone().add(diagonalV);
+var side=minPosV.clone().sub(corner)
+var angle=Math.atan2(side.y,side.x)
+
+console.log({dx:dx, dy:dy, diagonal:diagonal, ratio:ratio,
+  alpha:alpha,
+  a:a, b:b, diagonalV:diagonalV, corner:corner,
+  angle:angle/(2.0*Math.PI)*360.0
+})
+
+maxPosR=maxPosV.clone().rotateAround(new THREE.Vector2(0,0), -angle)
+minPosR=minPosV.clone().rotateAround(new THREE.Vector2(0,0), -angle)
+
 
 function updateMap() {
-  var x3d = ((cam.getAttribute('position').x) - minPos.x) / sceneXSize
-  var z3d = ((cam.getAttribute('position').z) - minPos.z) / sceneZSize
-  coords2d = rotateCoordinates(x3d, z3d, angle)
-  var x2d = coords2d[0];
-  var y2d = coords2d[1];
-  var playerRotation = angle - 90 - cam.getAttribute('rotation').y;
+  var vCam = new THREE.Vector2( cam.getAttribute('position').x, cam.getAttribute('position').z )
+  var vCamR = vCam.clone().rotateAround(new THREE.Vector2(0,0), -angle)
+  var x2d = (vCamR.x-minPosR.x)/(1.0*maxPosR.x)
+  var y2d = (vCamR.y-minPosR.y)/(1.0*maxPosR.y)
+  console.log(x2d+","+y2d)
+
+  var playerRotation = 90 - cam.getAttribute('rotation').y + angle/(2.0*Math.PI)*360;
   var css = ""
   css = css + "top:" + (y2d * floorplanHeight - halfCameraIconSize) + "px;left:" + (x2d * floorplanWidth - halfCameraIconSize) + "px;"
   css = css + "transform:rotate(" + playerRotation + "deg)"
