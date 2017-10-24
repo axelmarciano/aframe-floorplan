@@ -1,15 +1,3 @@
-/* BEGIN customize values here */
-
-var minPos = {
-  x: -0.3,
-  z: -1
-}
-var maxPos = {
-  x: -1,
-  z: 18.7
-}
-/* END customize values here */
-
 var cameraIcon = document.querySelector('#floorplan-camera-icon')
 var cameraIconSize = cameraIcon.offsetWidth
 var floorplanWrapper = document.querySelector('#floorplan-wrapper')
