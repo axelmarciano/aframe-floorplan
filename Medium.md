@@ -52,7 +52,7 @@ This is adjusted language to be used for Medium showcase post.
      ```
 1. Finally, add a script to your App which dynamically positions the location icon on the MiniMap. Again, do this “outside” the <a-scene> section. I usually put these at the bottom, right before </body> and </html> are closed:
    ```html
-    <script src="https://cdn.rawgit.com/mope1/aframe-floorplan-guide/724bff52/floorplan.js"></script>
+    <script src="https://cdn.rawgit.com/archilogic-com/aframe-floorplan/47a8a620/floorplan.js"></script>
     <script>
     /* BEGIN customize values here */
       var minPos = {
