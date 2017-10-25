@@ -1,4 +1,4 @@
-# aframe floorplan guide
+# aframe floorplan 
 This is a tiny guide on how to make a minimap HTML element in aframe, optionally using [3d.io](https://3d.io) (not required) 
 
 1. Create an aframe webapp from your 3d scene, for example on https://appcreator.3d.io/ .
